@@ -498,6 +498,11 @@ templates contain no other command bytes (METADATA), and the capture showed none
 - **Stored on the headset.** The level written (Low) read back after a host restart and after the headset had been off
   overnight (OBSERVED 2026-11-02 19:26 and 2026-11-03 05:08).
 - **The HyperSense button** changes the same state without the host; the dongle reports it (section 6.4).
+- **No haptic pulse from a generated tone** (OBSERVED 2026-11-04, third-party code): HyperSense is described as deriving
+  its vibration from the audio signal, so a host might trigger a pulse by playing a short low tone on the headset's
+  Windows playback endpoint. Tones of 300 and 500 ms at 60 Hz and 800 ms at 40 Hz, at 60 % amplitude, were audible as a
+  thump and produced no vibration with HyperSense at Low, at High and switched off, all three the same. A "vibrate now"
+  command remains unknown; an audio-driven pulse from a pure tone this short does not work on firmware 1.6.0.
 - ShadowXCC describes the level as an index 0 to 3 for 0/35/60/100 % (**PUBLISHED**). On the wire Synapse sends a
   separate on/off byte and levels 1 to 3 (CAPTURED); follow the wire.
 
@@ -639,8 +644,11 @@ it.
 - **Microphone mute button**: pressing and releasing it produced nothing on any endpoint of the dongle, CDC, HID or
   audio status (CAPTURED, segment 12). The mute happens inside the headset and the host cannot see it on USB
   (INFERRED).
-- **The volume wheel and the power button's media presses** go to the HID consumer interface as standard key reports
-  (**PUBLISHED**, report descriptor), not to the CDC channel.
+- **The power button's media presses** go to the HID consumer interface as standard key reports (**PUBLISHED**,
+  report descriptor), not to the CDC channel. **The volume wheel does not reach the host at all** (OBSERVED 2026-11-04):
+  it changes the headset's own output level, has end stops, and Windows' endpoint volume does not move when it turns, so
+  a host program's volume control (the Windows endpoint) and the wheel act as two independent levels. The mute button
+  likewise leaves Windows' recording-endpoint mute untouched (OBSERVED 2026-11-04), consistent with the capture above.
 - One HID report `01` then `00` arrived on `0x84` 0.15 s after a sidetone write (CAPTURED 13:52:04.899); bit 0 is the
   first usage of the report descriptor. Cause UNKNOWN; it did not recur.
 

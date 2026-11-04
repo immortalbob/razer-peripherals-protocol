@@ -20,9 +20,10 @@ The 90-byte feature-report protocol is well known from openrazer and OpenRGB, an
 protocol were published by small projects (see Credits). What was missing: what Synapse 3 actually sends, which of
 the published commands these particular models accept, how the devices behave between and without hosts, and how the
 headset's control channel works in full. On 2026-10-30 the USB traffic between Synapse 3 and all three devices was
-captured with USBPcap while the owner exercised one function at a time; from 2026-10-31 to 2026-11-03 the same units
+captured with USBPcap while the owner exercised one function at a time; from 2026-10-31 to 2026-11-04 the same units
 were driven by independently written code; on 2026-11-03 all Razer software was removed and the devices kept working
-on Windows' own drivers. This reference writes down what was seen, which published claims held, and what is still
+on Windows' own drivers; on 2026-11-04 the headset's Windows audio endpoints were tried as a haptics trigger (no
+vibration) and the owner checked what the volume wheel and the mute button reach (the headset only). This reference writes down what was seen, which published claims held, and what is still
 unknown.
 
 New compared with what was public before, among others:
@@ -112,6 +113,7 @@ masked throughout. The decoded bytes that matter are quoted in the documents.
 | 2026-11-01 | first writes: effects and DPI with and without the storage flag across a replug, custom frames without `0F:10`, the keyboard matrix row by row, wave directions, the DPI-stage read, keyswitch optimisation, the keyboard's power-up polling rate, an 8000 Hz write, separate X/Y DPI, the Game Mode LED, Fn+F10 without Synapse, a key-position map checked by the owner |
 | 2026-11-02 | the headset over the dongle's COM port: read probe, then sidetone, haptics, power saving and earcup colour writes |
 | 2026-11-03 | all Razer software removed; all three devices driven on Windows' inbox drivers |
+| 2026-11-04 | the headset's Windows playback endpoint driven with 40-60 Hz tones of 0.3-0.8 s at three HyperSense settings (no vibration, section 5.4 of the Kraken document); the volume wheel and the mute button observed to change nothing on the Windows side |
 
 ## Sources
 
@@ -159,6 +161,18 @@ trackers as of October 2026.
 
 Nothing from these projects (code, comments or prose) is copied here, only the protocol facts they established;
 byte layouts and constants that they already publish are stated with credit.
+
+## Related references
+
+The same PC's other devices are documented in the same way, each in its own repository:
+
+- [msi-meg-z790-ace-protocol](https://github.com/immortalbob/msi-meg-z790-ace-protocol): MSI MEG Z790 ACE motherboard: Mystic Light, the NCT6687D fan and sensor controller, MSI software and BIOS
+- [msi-coreliquid-s360-protocol](https://github.com/immortalbob/msi-coreliquid-s360-protocol): MSI MEG CoreLiquid S360 cooler: controller and LCD
+- [lian-li-uni-fan-sl-v2-protocol](https://github.com/immortalbob/lian-li-uni-fan-sl-v2-protocol): Lian Li UNI FAN SL V2 and the UNI HUB SL V2 controller
+- [lian-li-universal-screen-protocol](https://github.com/immortalbob/lian-li-universal-screen-protocol): Lian Li Universal Screen 8.8": LCD and LED ring
+- [asus-xg34wcdg-protocol](https://github.com/immortalbob/asus-xg34wcdg-protocol): ASUS ROG Strix OLED XG34WCDG monitor: DDC/CI and the Aura USB interface
+- [msi-optix-g27c2-protocol](https://github.com/immortalbob/msi-optix-g27c2-protocol): MSI Optix G27C2 monitor: DDC/CI and EDID
+- [msi-rtx4090-gaming-x-trio-protocol](https://github.com/immortalbob/msi-rtx4090-gaming-x-trio-protocol): MSI GeForce RTX 4090 Gaming X Trio: NVML and NVAPI control on Windows
 
 ## Licence
 

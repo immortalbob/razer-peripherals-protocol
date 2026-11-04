@@ -98,6 +98,12 @@ Firmware update: **deliberately not described** for any of the three devices.
 
 ## Change log
 
+- **2026-11-04, update.** Kraken V3 Pro: the volume wheel changes the headset's own level only (end stops, Windows'
+  endpoint volume unmoved) and the mute button leaves Windows' recording-endpoint mute untouched, both OBSERVED by
+  turning and pressing them while watching Windows; the earlier reading of the HID descriptor (wheel = volume
+  increment/decrement keys) is withdrawn for the wheel. Also OBSERVED: a short low tone (40-60 Hz, 0.3-0.8 s) on the
+  headset's playback endpoint produces no HyperSense vibration at any level (section 5.4), so an audio-driven haptic
+  pulse is not available this way.
 - **2026-11-04, first edition.** Written from one USBPcap capture of Synapse 3 in 14 segments (2026-10-30, 13:39 to
   14:03), Razer's installed files, Windows' device properties and Synapse's logs on the same PC, bench sessions with
   independently written code (2026-10-31 to 2026-11-03), the removal of all Razer software on 2026-11-03, and the
